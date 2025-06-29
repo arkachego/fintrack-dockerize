@@ -10,7 +10,7 @@ for repository in "${repositories[@]}"
 do
   echo "Cloning the repository of ${repository}"
   if [ ! -d repos/${repository} ]; then
-    git clone git@github.com:arkachego/${repository}.git repos/${repository}
+    git clone https://github.com/arkachego/${repository}.git repos/${repository}
   else
     echo "skipping ${repository} as it has already been cloned"
   fi
