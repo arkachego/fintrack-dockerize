@@ -1,0 +1,74 @@
+networks:
+  fintrack:
+    driver: bridge
+volumes:
+  postgres_data:
+services:
+  postgres:
+    image: postgres:17.5
+    platform: linux/amd64
+    container_name: postgres
+    restart: always
+    environment:
+      POSTGRES_USER: fintrack
+      POSTGRES_PASSWORD: fintrack
+      POSTGRES_DB: fintrack
+    ports:
+      - "5432:5432"
+    networks:
+      - fintrack
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready", "-d", "mootsh"]
+      interval: 15s
+      timeout: 10s
+      retries: 10
+  backend:
+    build:
+      context: ./repos/fintrack-backend
+      dockerfile: Dockerfile.dev
+    container_name: backend
+    ports:
+      - "3000:3000"
+    depends_on:
+      - postgres
+    networks:
+      - fintrack
+    environment:
+      NODE_ENV: development
+      DB_HOST: postgres
+      DB_PORT: 5432
+      DB_USER: fintrack
+      DB_PASSWORD: fintrack
+      DB_NAME: fintrack
+    volumes:
+      - ./repos/fintrack-backend:/app
+      - /app/node_modules
+    healthcheck:
+      test: curl --fail http://localhost:3000/health || exit 1
+      interval: 15s
+      timeout: 10s
+      retries: 10
+  frontend:
+    build:
+      context: ./repos/fintrack-frontend
+      dockerfile: Dockerfile.dev
+    container_name: frontend
+    ports:
+      - "5173:5173"
+    depends_on:
+      - backend
+    networks:
+      - fintrack
+    volumes:
+      - ./repos/fintrack-frontend:/app
+      - /app/node_modules
+    environment:
+      - NODE_ENV=development
+      - SERVER_URL=http://localhost:3000
+    healthcheck:
+      test: curl --fail http://localhost:5173 || exit 1
+      interval: 15s
+      timeout: 10s
+      retries: 10

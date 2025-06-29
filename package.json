@@ -1,0 +1,17 @@
+{
+  "name": "fintrack-dockerize",
+  "version": "1.0.0",
+  "description": "Dockerized development environment for FinTrack",
+  "main": "index.js",
+  "scripts": {
+    "ps": "docker ps -a",
+    "clone": "bash ./scripts/clone.sh",
+    "build": "docker compose build --no-cache",
+    "start": "docker compose up -d --wait",
+    "logs": "docker compose logs -f",
+    "stop": "docker compose down",
+    "clean": "sh ./scripts/clean.sh"
+  },
+  "author": "Arka Halder",
+  "license": "ISC"
+}
