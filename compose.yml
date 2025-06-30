@@ -42,6 +42,10 @@ services:
       DB_USER: fintrack
       DB_PASSWORD: fintrack
       DB_NAME: fintrack
+      AWS_REGION:
+      AWS_ACCESS_KEY_ID:
+      AWS_SECRET_ACCESS_KEY:
+      AWS_S3_BUCKET_NAME:
     volumes:
       - ./repos/fintrack-backend:/app
       - /app/node_modules
