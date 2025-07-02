@@ -46,6 +46,8 @@ services:
       AWS_ACCESS_KEY_ID:
       AWS_SECRET_ACCESS_KEY:
       AWS_S3_BUCKET_NAME:
+      AUTHORIZED_DOMAIN: localhost
+      AUTHORIZED_SUBDOMAIN:
     volumes:
       - ./repos/fintrack-backend:/app
       - /app/node_modules
@@ -70,7 +72,7 @@ services:
       - /app/node_modules
     environment:
       - NODE_ENV=development
-      - SERVER_URL=http://localhost:3000
+      - VITE_SERVER_BASE_URL=http://localhost:3000
     healthcheck:
       test: curl --fail http://localhost:5173 || exit 1
       interval: 15s
