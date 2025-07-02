@@ -27,14 +27,18 @@ npm run clone
 ```
 npm run build
 ```
+5. Start the dockerized environment.
 
-5. Get into the backend repository to run the script feeding seed data into the database.
+```
+npm run start
+```
+6. Get into the backend repository to run the script feeding seed data into the database.
 
 ```
 cd repos/fintrack-backend
 ```
 
-6. Create a `.env` file and paste the following in it:
+7. Create a `.env` file and paste the following in it:
 
 ```
 DB_HOST="localhost"
@@ -44,21 +48,16 @@ DB_PASSWORD="fintrack"
 DB_NAME="fintrack"
 ```
 
-7. Run the script to seed the database.
+8. Run the script to seed the database.
 
 ```
 npm run db:migrate
 ```
 
-8. Get back into the dockerized environment repository again.
+9. Get back into the dockerized environment repository again.
 
 ```
 cd ../..
-```
-9. Start the dockerized environment.
-
-```
-npm run start
 ```
 
 10. The app can be accessed from http://localhost:5173. To shut the environment down, please execute:
