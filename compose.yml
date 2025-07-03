@@ -71,7 +71,7 @@ services:
       - ./repos/fintrack-frontend:/app
       - /app/node_modules
     environment:
-      - NODE_ENV=development
+      - VITE_ENVIRONMENT=development
       - VITE_SERVER_BASE_URL=http://localhost:3000
     healthcheck:
       test: curl --fail http://localhost:5173 || exit 1
